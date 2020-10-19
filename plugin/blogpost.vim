@@ -27,11 +27,16 @@ function! s:MakeImagesDir(newfolderpath)
 endfunction
 
 " 4. yoshionote/contents/{任意の名前}/ 配下に {任意の名前}.md ファイル作成
+" 5. {任意の名前}.md ファイルの中にテンプレートを書き込む
 function! s:createMdFile(folderpath)
   echo 'createMdFile'
   let s:outputfile = '/test.md'
-  execute 'redir > ' . a:folderpath . s:outputfile
+  execute 'redir! > ' . a:folderpath . s:outputfile
+    echo '---'
+    echo "title: 'Welcome Bee starter'"
+    echo 'date: 2020-07-04 12:21:13'
+    echo "category: 'development'"
+    echo 'draft: true'
+    echo '---'
   redir END
 endfunction
-
-" 5. {任意の名前}.md ファイルの中にテンプレートを書き込む
