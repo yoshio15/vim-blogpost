@@ -8,21 +8,21 @@ function! BlogPost(foldername)
   echo 'New Folder Name: ' . a:foldername
   let s:newDirPath = newBaseDir . a:foldername
   echo 'New Directory Path: ' . s:newDirPath
-  call MakeNewCategoryDir(s:newDirPath)
+  call s:MakeNewCategoryDir(s:newDirPath)
 endfunction
 
 " 2 yoshionote/contents/ 配下に {任意の名前}/ フォルダ作成
 function! s:MakeNewCategoryDir(newDirPath)
   echo 'New Directory PATH: ' . a:newDirPath
-  " call mkdir(a:folderpath, "p")
-  call MakeImagesDir(a:newDirPath)
+  call mkdir(a:newDirPath, "p")
+  call s:MakeImagesDir(a:newDirPath)
 endfunction
 
 " 3. yoshionote/contents/{任意の名前}/ 配下に images/ フォルダ作成
 function! s:MakeImagesDir(newfolderpath)
-  let imagesDir = a:newfolderpath . '/images'
-  echo 'New images Directory PATH: ' . imagesDir
-  " call mkdir(imagesDir, "p")
+  let s:imagesDir = a:newfolderpath . '/images'
+  echo 'New images Directory PATH: ' . s:imagesDir
+  call mkdir(s:imagesDir, "p")
 endfunction
 
 " 4. yoshionote/contents/{任意の名前}/ 配下に {任意の名前}.md ファイル作成
