@@ -33,8 +33,8 @@ function! s:createMdFile(folderpath)
   let s:outputfile = '/test.md'
   execute 'redir! > ' . a:folderpath . s:outputfile
     echo '---'
-    echo "title: 'Welcome Bee starter'"
-    echo 'date: 2020-07-04 12:21:13'
+    echo "title: ''"
+    echo 'date: ' . strftime("%F %T")
     echo "category: 'development'"
     echo 'draft: true'
     echo '---'
