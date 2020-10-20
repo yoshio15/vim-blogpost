@@ -14,16 +14,28 @@ endfunction
 " 2 yoshionote/contents/ 配下に {任意の名前}/ フォルダ作成
 function! s:MakeNewCategoryDir(newDirPath)
   echo 'New Directory PATH: ' . a:newDirPath
-  call mkdir(a:newDirPath, "p")
-  call s:MakeImagesDir(a:newDirPath)
+  echo 'has already the Directory? :' . isdirectory(a:newDirPath)
+  if !isdirectory(a:newDirPath)
+    echo 'NO_DIRECTORY'
+    call mkdir(a:newDirPath, "p")
+    call s:MakeImagesDir(a:newDirPath)
+  else
+    echo 'THE DIRECTORY ALREADY EXISTS'
+  endif
+  call s:createMdFile(a:newDirPath)
 endfunction
 
 " 3. yoshionote/contents/{任意の名前}/ 配下に images/ フォルダ作成
 function! s:MakeImagesDir(newfolderpath)
   let s:imagesDir = a:newfolderpath . '/images'
   echo 'New images Directory PATH: ' . s:imagesDir
-  call mkdir(s:imagesDir, "p")
-  call s:createMdFile(a:newfolderpath)
+  if !isdirectory(s:imagesDir)
+    echo 'NO_IMAGES_DIRECTORY'
+    call mkdir(s:imagesDir, "p")
+  else
+    echo 'IMAGES DIRECTORY ALREADY EXISTS'
+  endif
+  endif
 endfunction
 
 " 4. yoshionote/contents/{任意の名前}/ 配下に {任意の名前}.md ファイル作成
