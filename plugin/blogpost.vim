@@ -43,12 +43,19 @@ endfunction
 function! s:createMdFile(folderpath)
   echo 'createMdFile'
   let s:outputfile = '/test.md'
-  execute 'redir! > ' . a:folderpath . s:outputfile
-    echo '---'
-    echo "title: ''"
-    echo 'date: ' . strftime("%F %T")
-    echo "category: 'development'"
-    echo 'draft: true'
-    echo '---'
-  redir END
+  echo 'outputfile path: ' . a:folderpath . s:outputfile
+  echo 'filereadable: ' . filereadable(a:folderpath . s:outputfile)
+  if !filereadable(a:folderpath . s:outputfile)
+    echo 'the file is not existed'
+    execute 'redir! > ' . a:folderpath . s:outputfile
+      echo '---'
+      echo "title: ''"
+      echo 'date: ' . strftime("%F %T")
+      echo "category: 'development'"
+      echo 'draft: true'
+      echo '---'
+    redir END
+  else
+    echo 'the file already exists'
+  endif
 endfunction
