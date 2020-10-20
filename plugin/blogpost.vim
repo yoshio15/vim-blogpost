@@ -1,4 +1,4 @@
-" 1. :BlogPostコマンドで起動
+" :BlogPostコマンドで起動
 command! -nargs=1 BlogPost call BlogPost(<f-args>)
 
 " main関数
@@ -11,7 +11,7 @@ function! BlogPost(foldername)
   call s:MakeNewCategoryDir(s:newDirPath)
 endfunction
 
-" 2 yoshionote/contents/ 配下に {任意の名前}/ フォルダ作成
+" {任意の名前}/ フォルダ作成
 function! s:MakeNewCategoryDir(newDirPath)
   echo 'New Directory PATH: ' . a:newDirPath
   echo 'has already the Directory? :' . isdirectory(a:newDirPath)
@@ -25,7 +25,7 @@ function! s:MakeNewCategoryDir(newDirPath)
   call s:createMdFile(a:newDirPath)
 endfunction
 
-" 3. yoshionote/contents/{任意の名前}/ 配下に images/ フォルダ作成
+" images/ フォルダ作成
 function! s:MakeImagesDir(newfolderpath)
   let s:imagesDir = a:newfolderpath . '/images'
   echo 'New images Directory PATH: ' . s:imagesDir
@@ -38,8 +38,7 @@ function! s:MakeImagesDir(newfolderpath)
   endif
 endfunction
 
-" 4. yoshionote/contents/{任意の名前}/ 配下に {任意の名前}.md ファイル作成
-" 5. {任意の名前}.md ファイルの中にテンプレートを書き込む
+" {任意の名前}.md ファイル作成
 function! s:createMdFile(folderpath)
   echo 'createMdFile'
   let s:outputfile = '/test.md'
