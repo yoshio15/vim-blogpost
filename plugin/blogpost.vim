@@ -3,50 +3,39 @@ command! -nargs=1 BlogPost call BlogPost(<f-args>)
 
 " main関数
 function! BlogPost(foldername)
-  let newBaseDir = expand('<sfile>:p:h') . '/test/'
-  echo 'New Base PATH: ' . newBaseDir
-  echo 'New Folder Name: ' . a:foldername
-  let s:newDirPath = newBaseDir . a:foldername
-  echo 'New Directory Path: ' . s:newDirPath
-  call s:MakeNewCategoryDir(s:newDirPath)
+  let s:baseDir = expand('<sfile>:p:h') . '/test/'
+  echo 'Base Directory: ' . s:baseDir
+  let s:newDirPath = s:baseDir . a:foldername
+  call s:makeDirectories(s:newDirPath)
+  call s:createMdFile(s:newDirPath)
 endfunction
 
-" {任意の名前}/ フォルダ作成
-function! s:MakeNewCategoryDir(newDirPath)
-  echo 'New Directory PATH: ' . a:newDirPath
-  echo 'has already the Directory? :' . isdirectory(a:newDirPath)
+" 必要なフォルダが存在していなければ作成する
+function! s:makeDirectories(newDirPath)
+
   if !isdirectory(a:newDirPath)
-    echo 'NO_DIRECTORY'
+    echo '[' . a:newDirPath . '] created'
     call mkdir(a:newDirPath, "p")
     call s:MakeImagesDir(a:newDirPath)
   else
-    echo 'THE DIRECTORY ALREADY EXISTS'
+    echo '[' . a:newDirPath . '] already exists'
   endif
-  call s:createMdFile(a:newDirPath)
-endfunction
 
-" images/ フォルダ作成
-function! s:MakeImagesDir(newfolderpath)
-  let s:imagesDir = a:newfolderpath . '/images'
-  echo 'New images Directory PATH: ' . s:imagesDir
+  let s:imagesDir = a:newDirPath . '/images'
   if !isdirectory(s:imagesDir)
-    echo 'NO_IMAGES_DIRECTORY'
+    echo '[' . s:imagesDir . '] created'
     call mkdir(s:imagesDir, "p")
   else
-    echo 'IMAGES DIRECTORY ALREADY EXISTS'
+    echo '[' . s:imagesDir . '] already exists'
   endif
-  endif
+
 endfunction
 
 " {任意の名前}.md ファイル作成
 function! s:createMdFile(folderpath)
-  echo 'createMdFile'
-  let s:outputfile = '/test.md'
-  echo 'outputfile path: ' . a:folderpath . s:outputfile
-  echo 'filereadable: ' . filereadable(a:folderpath . s:outputfile)
-  if !filereadable(a:folderpath . s:outputfile)
-    echo 'the file is not existed'
-    execute 'redir! > ' . a:folderpath . s:outputfile
+  let s:outputfile = a:folderpath . '/test.md'
+  if !filereadable(s:outputfile)
+    execute 'redir! > ' . s:outputfile
       echo '---'
       echo "title: ''"
       echo 'date: ' . strftime("%F %T")
@@ -54,7 +43,8 @@ function! s:createMdFile(folderpath)
       echo 'draft: true'
       echo '---'
     redir END
+    echo '[' . s:outputfile . '] created'
   else
-    echo 'the file already exists'
+    echo '[' . s:outputfile . '] already exists'
   endif
 endfunction
