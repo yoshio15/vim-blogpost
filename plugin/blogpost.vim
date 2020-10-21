@@ -1,6 +1,3 @@
-" :BlogPostコマンドで起動
-command! -nargs=+ BlogPost call BlogPost(<f-args>)
-
 " main関数
 function! BlogPost(foldername, filename)
   let s:baseDir = expand('<sfile>:p:h') . '/test/'
@@ -48,3 +45,6 @@ function! s:createMdFile(folderpath, filename)
     echo '[' . s:outputfile . '] already exists'
   endif
 endfunction
+
+" :BlogPostコマンドで起動
+command! -nargs=+ BlogPost call BlogPost(<f-args>)
