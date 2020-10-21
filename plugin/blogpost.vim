@@ -1,13 +1,13 @@
 " :BlogPostコマンドで起動
-command! -nargs=1 BlogPost call BlogPost(<f-args>)
+command! -nargs=+ BlogPost call BlogPost(<f-args>)
 
 " main関数
-function! BlogPost(foldername)
+function! BlogPost(foldername, filename)
   let s:baseDir = expand('<sfile>:p:h') . '/test/'
   echo 'Base Directory: ' . s:baseDir
   let s:newDirPath = s:baseDir . a:foldername
   call s:makeDirectories(s:newDirPath)
-  call s:createMdFile(s:newDirPath)
+  call s:createMdFile(s:newDirPath, a:filename)
 endfunction
 
 " 必要なフォルダが存在していなければ作成する
@@ -32,8 +32,8 @@ function! s:makeDirectories(newDirPath)
 endfunction
 
 " {任意の名前}.md ファイル作成
-function! s:createMdFile(folderpath)
-  let s:outputfile = a:folderpath . '/test.md'
+function! s:createMdFile(folderpath, filename)
+  let s:outputfile = a:folderpath . '/' . a:filename . '.md'
   if !filereadable(s:outputfile)
     execute 'redir! > ' . s:outputfile
       echo '---'
