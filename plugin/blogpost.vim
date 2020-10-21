@@ -1,3 +1,11 @@
+" TODO
+" - vimrc からbase パスを取得できるようにする
+" - err_msg 出力の関数化
+" - autoload/ フォルダに分割
+" - テストを書く
+" - doc/ を書く
+" - README.md を書く
+
 " main関数
 function! BlogPost(foldername, filename)
   let s:baseDir = expand('~/Sources/00_YoshioNote/yoshionote/content/blog/')
