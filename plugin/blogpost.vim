@@ -13,7 +13,6 @@ function! s:makeDirectories(newDirPath)
   if !isdirectory(a:newDirPath)
     echo '[' . a:newDirPath . '] created'
     call mkdir(a:newDirPath, "p")
-    call s:MakeImagesDir(a:newDirPath)
   else
     echo '[' . a:newDirPath . '] already exists'
   endif
