@@ -1,6 +1,6 @@
 " main関数
 function! BlogPost(foldername, filename)
-  let s:baseDir = expand('<sfile>:p:h') . '/test/'
+  let s:baseDir = expand('~/Sources/00_YoshioNote/yoshionote/content/blog/')
   echo 'Base Directory: ' . s:baseDir
   let s:newDirPath = s:baseDir . a:foldername
   call s:makeDirectories(s:newDirPath)
