@@ -8,7 +8,11 @@
 
 " main関数
 function! BlogPost(foldername, filename)
-  let s:baseDir = expand('~/Sources/00_YoshioNote/yoshionote/content/blog/')
+  if !exists('g:blogpost_base_path')
+    echo 'g:blogpost_base_path is not difined in your vimrc'
+    finish
+  endif
+  let s:baseDir = expand(g:blogpost_base_path)
   echo 'Base Directory: ' . s:baseDir
   let s:newDirPath = s:baseDir . a:foldername
   call s:makeDirectories(s:newDirPath)
